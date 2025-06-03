@@ -59,7 +59,7 @@
                                 <resource>
                                     <directory>${basedir}/lib</directory>
                                     <includes>
-                                        <include>jconn4-7.0.7.jar</include>
+                                        <include>jconn4-16.3.4.jar</include>
                                     </includes>
                                 </resource>
                             </resources>
@@ -74,9 +74,9 @@
         <dependency>
             <groupId>com.sap.jconnect</groupId>
             <artifactId>jconn4</artifactId>
-            <version>7.0.7</version>
+            <version>16.3.4</version>
             <scope>system</scope>
-            <systemPath>${basedir}/lib/jconn4-7.0.7.jar</systemPath>
+            <systemPath>${basedir}/lib/jconn4-16.3.4.jar</systemPath>
         </dependency>
     </dependencies>
 </project>

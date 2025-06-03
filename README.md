@@ -9,8 +9,8 @@ mvn clean package
 ## Run
 
 ```
-java -classpath sybase-csv-dump --jdbc-url=<URL> --username="" --password="" \
-                                --database="" --table="" \
-                                --delimiter="," --output=user_20250501.csv \
-                                SybaseToCSVExporter
+java -classpath sybase-csv-dump.jar:jconn4-16.3.4.jar SybaseToCSVExporter \
+                 --jdbc-url=JDBC_URL --username=USER --password=PASS \
+                 --database=DB --table=TABLE \
+                 --delimiter=',' --output=FILE.csv
 ```
