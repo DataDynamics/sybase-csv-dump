@@ -9,5 +9,8 @@ mvn clean package
 ## Run
 
 ```
-java -classpath sybase-csv-dump --jdbc-url=<URL> --username="" --password="" --database="" --table="" --delimiter="," --output=user_20250501.csv
+java -classpath sybase-csv-dump --jdbc-url=<URL> --username="" --password="" \
+                                --database="" --table="" \
+                                --delimiter="," --output=user_20250501.csv \
+                                CSVDump
 ```
