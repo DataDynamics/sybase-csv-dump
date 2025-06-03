@@ -32,16 +32,37 @@
                 <executions>
                     <execution>
                         <id>unpack-dependencies</id>
-                        <phase>package</phase>
+                        <phase>compile</phase>
                         <goals>
                             <goal>unpack-dependencies</goal>
                         </goals>
                         <configuration>
-                            <includes>**/*.class</includes>
+                            <includes>**/*</includes>
                             <excludes>**/*.properties</excludes>
-                            <outputDirectory>${project.build.directory}/alternateLocation</outputDirectory>
-                            <overWriteReleases>false</overWriteReleases>
-                            <overWriteSnapshots>true</overWriteSnapshots>
+                            <outputDirectory>${project.build.directory}/classes</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>com.googlecode.addjars-maven-plugin</groupId>
+                <artifactId>addjars-maven-plugin</artifactId>
+                <version>1.0.5</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>add-jars</goal>
+                        </goals>
+                        <configuration>
+                            <resources>
+                                <resource>
+                                    <directory>${basedir}/lib</directory>
+                                    <includes>
+                                        <include>jconn4-7.0.7.jar</include>
+                                    </includes>
+                                </resource>
+                            </resources>
                         </configuration>
                     </execution>
                 </executions>
@@ -54,14 +75,8 @@
             <groupId>com.sap.jconnect</groupId>
             <artifactId>jconn4</artifactId>
             <version>7.0.7</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/jconn4-7.0.7.jar</systemPath>
         </dependency>
     </dependencies>
-
-    <repositories>
-        <repository>
-            <id>ColorCoding</id>
-            <url>https://maven.colorcoding.org/repository/maven-public/</url>
-        </repository>
-    </repositories>
-
 </project>
