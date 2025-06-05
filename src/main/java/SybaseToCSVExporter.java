@@ -1,31 +1,31 @@
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
 
 public class SybaseToCSVExporter {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Map<String, String> params = parseArgs(args);
 
         String jdbcUrl = params.get("jdbc-url");
         String username = params.get("username");
         String password = params.get("password");
-        String database = params.get("database");
-        String sql = params.get("sql");
-        String table = params.get("table");
+        String sqlFile = params.get("sql-file");
         String delimiter = params.getOrDefault("delimiter", ",");
         String output = params.get("output");
 
-        if (jdbcUrl == null || username == null || password == null || (database == null || table == null) ? (sql == null ? true : false) : false || output == null) {
+        if (jdbcUrl == null || username == null || password == null || sqlFile == null || output == null) {
             System.err.println("Missing required arguments.");
             printUsage();
             System.exit(1);
         }
 
-        String query = sql == null ? String.format("SELECT * FROM %s..%s", database, table) : sql;
+        String query = Files.readString(Path.of(sqlFile));
 
         try (
                 Connection conn = DriverManager.getConnection(jdbcUrl, username, password);
@@ -80,6 +80,6 @@ public class SybaseToCSVExporter {
 
     private static void printUsage() {
         System.out.println("Usage:");
-        System.out.println("  java SybaseToCSVExporter --jdbc-url=JDBC_URL --username=USER --password=PASS --database=DB --table=TABLE --delimiter=',' --output=FILE.csv");
+        System.out.println("  java -classpath sybase-csv-dump.jar:jconn4-16.3.4.jar SybaseToCSVExporter --jdbc-url=JDBC_URL --username=USER --password=PASS --sql-file=user.sql --delimiter=',' --output=FILE.csv");
     }
 }
